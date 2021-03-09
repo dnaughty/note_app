@@ -13,11 +13,13 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control mb-3' %>
   </div>
 
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <%= link_to 'Cancel', notebooks_path, class: 'btn btn-secondary ml-1' %>
   </div>
 <% end %>
