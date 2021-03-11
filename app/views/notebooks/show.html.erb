@@ -1,14 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @notebook.title %>
-</p>
 
-<p>
-  <strong>User:</strong>
-  <%= @notebook.user_id %>
-</p>
+<h3 class='d-flex justify-content-between'>
+  <span>Pages</span>
+<%= link_to 'New Page',  new_notebook_page_path(@notebook), class: 'btn btn-primary' %>
+</h3>
 
-<%= link_to 'Edit', edit_notebook_path(@notebook) %> |
-<%= link_to 'Back', notebooks_path %>
+<table class="table">
+  <thead>
+    <tr>
+    	<th></th>
+      <th>Title</th>
+      
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notebook.pages.each do |page| %>
+      <tr>
+
+      	<td><%= page.position %></td>
+      	<td><%= link_to page.title, notebook_page_path(@notebook, page) %></td>
+        
+        <td><%= link_to 'Edit', edit_notebook_page_path(@notebook, page) %></td>
+        <td><%= link_to 'Destroy', notebook_page_path(@notebook, page), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+

@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @page.title %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @page.position %>
+</p>
+
+<p>
+  <strong>Notebook:</strong>
+  <%= @page.notebook_id %>
+</p>
+
+<%= link_to 'Edit', edit_notebook_page_path(@notebook, @page) %> |
+<%= link_to 'Back', @notebook %>
+
+
