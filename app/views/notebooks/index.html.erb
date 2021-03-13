@@ -2,8 +2,28 @@
 
 <h3 class='d-flex justify-content-between'>
   <span>Notebooks</span>
-<%= link_to 'New Notebook',  new_notebook_path, class: 'btn btn-primary' %>
+  <%= link_to 'New Notebook',  new_notebook_path, class: 'btn btn-primary' %>
 </h3>
+
+
+<div class="row">
+  <% @notebooks.each do |notebook| %>
+    <div class="col-md-4">    
+      <%= link_to notebook do %>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class='card-title'>
+              <%= notebook.title %>
+              <i class="fas fa-ellipsis-h"></i>
+              </h5>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      
+  <% end %>
+
+</div>
 
 <table class="table">
   <thead>
