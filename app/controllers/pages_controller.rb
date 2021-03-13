@@ -21,14 +21,12 @@ class PagesController < ApplicationController
   def create
     @page = @notebook.pages.build(page_params)
 
+    @page.position = @notebook.get_next_page_position
+
       if @page.save
-       
           redirect_to notebook_page_path(@notebook, @page), notice: "Page was successfully created." 
-        
-         
         else
           render :new 
-          
         end
     
   end
@@ -67,7 +65,7 @@ class PagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def page_params
-      params.require(:page).permit(:title, :position, :notebook_id)
+      params.require(:page).permit(:title)
     end
 end
 

@@ -1,10 +1,22 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Back', notebooks_path, class: 'btn btn-light mb-3' %>
+<h3 class='mb-4'>
+  <%= @notebook.title %>
+   <%= link_to 'Edit', edit_notebook_path(@notebook), class: 'btn btn-outline-primary' %> 
 
-<h3 class='d-flex justify-content-between'>
+ 
+    
+    
+  </div>
+</h3>
+
+
+
+ <h5 class='d-flex justify-content-between'>
   <span>Pages</span>
 <%= link_to 'New Page',  new_notebook_page_path(@notebook), class: 'btn btn-primary' %>
-</h3>
+</h5>
 
 <table class="table">
   <thead>
@@ -29,6 +41,7 @@
     <% end %>
   </tbody>
 </table>
+
 
 
 
