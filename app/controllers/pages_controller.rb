@@ -1,20 +1,26 @@
 class PagesController < ApplicationController
   before_action :set_notebook
   before_action :set_page, only: %i[ show edit update destroy ]
+  before_action :set_base_breadcrumbs, only: [:show, :new, :edit]
 
   
 
   # GET /pages/1 or /pages/1.json
   def show
+    add_breadcrumb(@page.title)
   end
 
   # GET /pages/new
   def new
+     
+     add_breadcrumb('New Page')
     @page = Page.new
   end
 
   # GET /pages/1/edit
   def edit
+     add_breadcrumb(@page.title, notebook_page_path(@notebook,@page))
+     add_breadcrumb('Edit')
   end
 
   # POST /pages or /pages.json
@@ -66,6 +72,12 @@ class PagesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def page_params
       params.require(:page).permit(:title)
+    end
+
+
+     def set_base_breadcrumbs
+      add_breadcrumb("Notebooks", notebooks_path)
+       add_breadcrumb(@notebook.title,notebooks_path(@notebook))
     end
 end
 
