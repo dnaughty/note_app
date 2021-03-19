@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   
   resources :paragraphs
   resources :notebooks do 
-  	resources :pages
+  	resources :pages do 
+  		resources :paragraphs
+  	end
+
+
   end
   devise_for :users
   get 'home/index'

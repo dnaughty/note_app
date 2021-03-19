@@ -1,48 +1,27 @@
 class ParagraphsController < ApplicationController
-  before_action :set_paragraph, only: %i[ show edit update destroy ]
+  before_action :set_paragraph, only: %i[ update destroy ]
 
-  # GET /paragraphs or /paragraphs.json
-  def index
-    @paragraphs = Paragraph.all
-  end
-
-  # GET /paragraphs/1 or /paragraphs/1.json
-  def show
-  end
-
-  # GET /paragraphs/new
-  def new
-    @paragraph = Paragraph.new
-  end
-
-  # GET /paragraphs/1/edit
-  def edit
-  end
+ 
 
   # POST /paragraphs or /paragraphs.json
   def create
-    @paragraph = Paragraph.new(paragraph_params)
+     @notebook = current_user.notebooks.find(params[:notebook_id])
+     @page = @notebook.pages.find(params[:page_id])
 
-    respond_to do |format|
-      if @paragraph.save
-        format.html { redirect_to @paragraph, notice: "Paragraph was successfully created." }
-        format.json { render :show, status: :created, location: @paragraph }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @paragraph.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+     @page.paragraphs.create
+     redirect_to notebook_page_path(@notebook, @page)
+   end
 
   # PATCH/PUT /paragraphs/1 or /paragraphs/1.json
   def update
+    @notebook = current_user.notebooks.find(params[:notebook_id])
+     @page = @notebook.pages.find(params[:page_id])
+     @paragraph = @page.paragraphs.find(params[:id])
     respond_to do |format|
       if @paragraph.update(paragraph_params)
-        format.html { redirect_to @paragraph, notice: "Paragraph was successfully updated." }
-        format.json { render :show, status: :ok, location: @paragraph }
+        redirect_to notebook_page_path(@notebook, @page), notice: "Paragraph was successfully updated." 
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @paragraph.errors, status: :unprocessable_entity }
+        render :edit
       end
     end
   end
@@ -64,6 +43,6 @@ class ParagraphsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def paragraph_params
-      params.require(:paragraph).permit(:page_id)
+      params.require(:paragraph).permit(:content)
     end
 end

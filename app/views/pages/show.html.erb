@@ -1,13 +1,31 @@
 <p id="notice"><%= notice %></p>
 
 
-<%= link_to 'Back', @notebook, class: 'btn btn-light mb-3' %>
-<h3>
+<h3 class='d-flex justify-content-between mb-5'>
+	<div>
+		<%= @page.title %>
+  		<%= link_to 'Edit', edit_notebook_page_path(@notebook, @page), class: 'btn btn-outline-primary' %> 
 
-  <%= @page.title %>
-  <%= link_to 'Edit', edit_notebook_page_path(@notebook, @page), class: 'btn btn-outline-primary' %> 
+
+	</div>
+
+  
+  <%= form_with(model: [@notebook, @page, @paragraph]) do |form|  %>
+  	<%= form.submit "Add Paragraph", class: 'btn btn-primary' %>
+  <% end %>
 
 </h3>
+
+<% @page.paragraphs.each do |paragraph| %>
+	
+	<% if paragraph.persisted? %>
+		 <%= form_with(model: [@notebook, @page, paragraph]) do |form|  %>
+		 	<%= form.rich_text_area :content %>
+	  	 	<%= form.submit "Save", class: 'btn btn-primary mt-3' %>
+	  	 <% end %>
+	<% end %>
+<% end %>
+
 
 
 
